@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .btn-group button {
+        display: block;
+        padding: 12px 20px;
+        width: 300px;
+        font-size: 25px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: green;
+        border: none;
+        border-radius: 15px;
+        margin-top: 20px;
+        margin-left: 600px;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .btn-group button:not(:last-child) {
+        border-bottom: none;
+      }
+
+      .btn-group button:hover {
+        background-color: darkgreen;
+      }
+      h1 {
+        font-size: 50px;
+
+        text-align: center;
+        color: white;
+      }
+      h2 {
+        font-size: 30px;
+
+        text-align: center;
+        color: white;
+      }
+      body {
+        height: 100vh;
+        background-image: linear-gradient(
+            to bottom right,
+            rgba(0, 0, 0, 0.9),
+            rgba(0, 0, 0, 0.6)
+          ),
+          url("image.jpeg");
+        font-family: "Montserrat", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <br /><br />
+    <h1>ARLINGTON SPROUTS STORE</h1>
+
+    <br /><br />
+
+    <div class="btn-group">
+      <button onclick="location.href='get_item.php'">SHOW ITEMS</button>
+      <button onclick="location.href='insert_item.html'">INSERT ITEM</button>
+      <button onclick="location.href='update_item.html'">UPDATE ITEM</button>
+      <button onclick="location.href='delete_item.html'">DELETE ITEM</button>
+    </div>
+  </body>
+</html>

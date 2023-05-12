@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Item Update Form</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet"  href="style.css">
+</head>
+<body>
+  
+  <div id="itemFormDiv"><form id="itemForm">
+    
+    <h1>Item Delete Form</h1>
+    <label for="itemId">Item ID:</label>
+    <input type="text" id="itemId" name="itemId">
+    <br>
+    <label style="display: none;"  id="itemNameLabel" for="itemName">Item Name:</label>
+    <input readonly style="display: none;"  type="text" id="itemName" name="itemName"  required>
+    <br>
+    <button class="btn" type="button" id="fetchButton" onclick="fetchItem()">Fetch Record</button>
+    <button class="btn" type="button" id="updateBtn" onclick="updateItem()" style="display:none;">Delete</button>
+  </form></div>
+  <div id="itemDetails" style="display:none;">
+    <h2>Item Details</h2>
+    <p>Item ID: <span id="itemDetailsId"></span></p>
+    <p>Item Name: <span id="itemDetailsName"></span></p>
+    <p>Item Price: <span id="itemDetailsPrice"></span></p>
+    <br>
+    <a href="/">Go back</a>
+  </div>
+  <script>
+    function fetchItem() {
+      var itemId = document.getElementById("itemId").value;
+      $.ajax({
+        url: "get_item_by_id.php",
+        type: "GET",
+        data: {iid: itemId},
+        dataType: "json",
+        success: function(data) {
+            
+          if (data.item.length>0) {
+            item = data.item[0];
+            
+            document.getElementById("itemName").value = item.iname;
+            document.getElementById("itemId").readOnly = true;
+            // document.getElementById("itemPrice").value = item.sprice;
+            document.getElementById("itemDetailsId").textContent = item.iid;
+            document.getElementById("itemDetailsName").textContent = item.iname;
+            document.getElementById("itemDetailsPrice").textContent = item.sprice;
+            document.getElementById("itemDetails").style.display = "block";
+            document.getElementById("updateBtn").style.display = "block";
+            // document.getElementById("itemPrice").style.display = "block";
+            document.getElementById("itemName").style.display = "block";
+            // document.getElementById("itemPriceLabel").style.display = "block";
+            document.getElementById("itemNameLabel").style.display = "block";
+            document.getElementById("fetchButton").style.display = "none";
+          } else {
+            alert("Item not found");
+          }
+        },
+        error: function() {
+          alert("Error fetching item details");
+        }
+      });
+    }
+
+    function updateItem() {
+      var itemId = document.getElementById("itemId").value;
+      var itemName = document.getElementById("itemName").value;
+      
+      $.ajax({
+        url: "delete_item.php",
+        type: "POST",
+        data: {iid: itemId},
+        dataType: "json",
+        success: function(data) {
+          if (data.success) {
+            alert("Item deleted successfully");
+            document.getElementById("itemFormDiv").style.display="none";
+            // Redirect to a different URL
+            window.location.href = "/get_item.php";
+
+          } else {
+            alert("Failed to update item");
+          }
+        },
+        error: function() {
+          alert("Error updating item");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
